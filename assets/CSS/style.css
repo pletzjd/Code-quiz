@@ -52,6 +52,7 @@ ul,ol{
 body{
     display: flex;
     flex-direction: column;
+    flex: 1 1;
 }
 
 header{
@@ -67,7 +68,7 @@ header{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex: 1 1 65rem;
+    flex: 1 1;
 }
 
 #subheader{
