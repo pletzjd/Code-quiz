@@ -49,6 +49,7 @@ ul,ol{
     list-style: circle;
 }
 
+/*Custome styling*/
 body{
     display: flex;
     flex-direction: column;
@@ -61,6 +62,19 @@ header{
     background-color: blueviolet;
     padding: 1rem;
   }
+
+#multiChoice{
+    display: none;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1 1;
+}
+
+#multiChoice ul{
+    list-style: none;
+}
 
 #intro{
     display: flex;

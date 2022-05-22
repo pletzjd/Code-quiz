@@ -1,14 +1,70 @@
 let startButton = document.getElementById("start")
 let highscoreButton = document.getElementById("highscore")
 
-startButton.addEventListener("click",timer)
+let multiChoice = document.getElementById("multiChoice");
+let intro = document.getElementById("intro");
+let question = document.getElementById("question");
+let choice_1 = document.getElementById("choice_1");
+let choice_2 = document.getElementById("choice_2");
+let choice_3 = document.getElementById("choice_3");
+let choice_4 = document.getElementById("choice_4");
+
+let timeLeft = 60;
+let count = 0;
+let timerEl = document.getElementById("timer")
+let score = 0;
+
+let questionsARR =[ {
+    "question": "What is HTML?",
+    "choice_1": "Programing language",
+    "choice_2": "Formating language",
+    "choice_3": "Styling language",
+    "choice_4": "Useless",
+    "answer": "Formating language"
+},
+{
+    "question": "What is CSS?",
+    "choice_1": "Programing language",
+    "choice_2": "Formating language",
+    "choice_3": "Styling language",
+    "choice_4": "Useless",
+    "answer": "Styling language"
+},
+{
+    "question": "What is Javascript?",
+    "choice_1": "Programing language",
+    "choice_2": "Formating language",
+    "choice_3": "Styling language",
+    "choice_4": "Useless",
+    "answer": "Programing language"
+},
+{
+    "question": "If, when my function is done, I want a variable defined by calling the function to be set to 8, what should be at the end of my function?",
+    "choice_1": "send 8",
+    "choice_2": "give 8",
+    "choice_3": "return 8",
+    "choice_4": "done 8",
+    "answer": "return 8"
+},
+{
+    "question": "The logical operator for 'and' is: ",
+    "choice_1": "&&",
+    "choice_2": "||",
+    "choice_3": "++",
+    "choice_4": "==",
+    "answer": "&&"
+}
+]
 
 
-function timer(){
-    let timeLeft = 10;
-    let timerEl = document.getElementById("timer")
+startButton.addEventListener("click",startGame)
 
-  let timeInterval = setInterval(function () {
+
+
+function startGame(){
+
+  function timer(){
+    let timeInterval = setInterval(function () {
 
     if (timeLeft > 1) {
       timerEl.textContent = "Time Left: " + timeLeft +" seconds";
@@ -16,10 +72,53 @@ function timer(){
     } else if (timeLeft === 1) {
       timerEl.textContent = "Time Left: " + timeLeft +" second";
       timeLeft--;
-    } else {
+    } else if(timeLeft === 0){
       timerEl.textContent = 'Time Left: 0 seconds';
+      multiChoice.style.display = "none";
+      intro.style.display = "flex";
+      timeLeft = 60;
+      score = 0;
       clearInterval(timeInterval);
     }
-    return
+    return;
 }, 1000);
 }
+
+  timer()
+  multiChoice.style.display = "flex";
+  intro.style.display = "none";
+
+  question.textContent = questionsARR[0].question;
+  choice_1.textContent = questionsARR[0].choice_1;
+  choice_2.textContent = questionsARR[0].choice_2;
+  choice_3.textContent = questionsARR[0].choice_3;
+  choice_4.textContent = questionsARR[0].choice_4;
+
+  multiChoice.addEventListener("click", function(event){
+    let element = event.target;
+    if (element.matches("button")){
+      let chosenAnswer = element.textContent
+      if (chosenAnswer !== questionsARR[count].answer){
+          timeLeft = timeLeft-15;
+      }
+    }
+
+    count++
+
+    if (count<questionsARR.length){
+      question.textContent = questionsARR[count].question;
+      choice_1.textContent = questionsARR[count].choice_1;
+      choice_2.textContent = questionsARR[count].choice_2;
+      choice_3.textContent = questionsARR[count].choice_3;
+      choice_4.textContent = questionsARR[count].choice_4;
+    }else{
+      localStorage.setItem("score", timeLeft);
+      timeLeft = 0;
+      count = 0;
+    }
+})
+
+  
+
+}
+
