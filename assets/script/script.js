@@ -10,9 +10,11 @@ let choice_3 = document.getElementById("choice_3");
 let choice_4 = document.getElementById("choice_4");
 
 let timeLeft = 60;
-let count = 0;
+let count =0;
 let timerEl = document.getElementById("timer")
 let score = 0;
+
+let scoreSubmit = document.getElementById("scoreSubmit")
 
 let questionsARR =[ {
     "question": "What is HTML?",
@@ -65,60 +67,62 @@ function startGame(){
 
   function timer(){
     let timeInterval = setInterval(function () {
-
-    if (timeLeft > 1) {
-      timerEl.textContent = "Time Left: " + timeLeft +" seconds";
-      timeLeft--;
-    } else if (timeLeft === 1) {
-      timerEl.textContent = "Time Left: " + timeLeft +" second";
-      timeLeft--;
-    } else if(timeLeft === 0){
-      timerEl.textContent = 'Time Left: 0 seconds';
-      multiChoice.style.display = "none";
-      intro.style.display = "flex";
-      timeLeft = 60;
-      score = 0;
-      clearInterval(timeInterval);
-    }
-    return;
-}, 1000);
+      if (timeLeft > 1) {
+        timerEl.textContent = "Time Left: " + timeLeft +" seconds";
+        timeLeft--;
+      }else if (timeLeft === 1) {
+        timerEl.textContent = "Time Left: " + timeLeft +" second";
+        timeLeft--;
+      } else if(timeLeft === 0){
+        timerEl.textContent = 'Time Left: 0 seconds';
+        multiChoice.style.display = "none";
+        scoreSubmit.style.display = "flex";
+        if (count<questionsARR.length){
+          score = 0;
+        }
+        timeLeft = 60;
+        count = 0;
+        let scoreDisplay= document.getElementById("scoreDisplay");
+        scoreDisplay.textContent= "Your score is: "+`${score}`;
+        clearInterval(timeInterval);
+      }
+      return;
+    }, 1000);
 }
 
   timer()
   multiChoice.style.display = "flex";
   intro.style.display = "none";
 
-  question.textContent = questionsARR[0].question;
-  choice_1.textContent = questionsARR[0].choice_1;
-  choice_2.textContent = questionsARR[0].choice_2;
-  choice_3.textContent = questionsARR[0].choice_3;
-  choice_4.textContent = questionsARR[0].choice_4;
+  question.textContent = questionsARR[count].question;
+  choice_1.textContent = questionsARR[count].choice_1;
+  choice_2.textContent = questionsARR[count].choice_2;
+  choice_3.textContent = questionsARR[count].choice_3;
+  choice_4.textContent = questionsARR[count].choice_4;
 
   multiChoice.addEventListener("click", function(event){
     let element = event.target;
     if (element.matches("button")){
-      let chosenAnswer = element.textContent
+      let chosenAnswer = element.textContent;
+
       if (chosenAnswer !== questionsARR[count].answer){
-          timeLeft = timeLeft-15;
+        timeLeft = timeLeft-15;
       }
+
+      count++
+
+      if (count<questionsARR.length){
+        question.textContent = questionsARR[count].question;
+        choice_1.textContent = questionsARR[count].choice_1;
+        choice_2.textContent = questionsARR[count].choice_2;
+        choice_3.textContent = questionsARR[count].choice_3;
+        choice_4.textContent = questionsARR[count].choice_4;
+      }else{
+        score = timeLeft;
+        timeLeft = 0;
+      }
+      
     }
-
-    count++
-
-    if (count<questionsARR.length){
-      question.textContent = questionsARR[count].question;
-      choice_1.textContent = questionsARR[count].choice_1;
-      choice_2.textContent = questionsARR[count].choice_2;
-      choice_3.textContent = questionsARR[count].choice_3;
-      choice_4.textContent = questionsARR[count].choice_4;
-    }else{
-      localStorage.setItem("score", timeLeft);
-      timeLeft = 0;
-      count = 0;
-    }
-})
-
-  
-
+  })
 }
 
