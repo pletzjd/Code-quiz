@@ -15,6 +15,9 @@ let timerEl = document.getElementById("timer")
 let score = 0;
 
 let scoreSubmit = document.getElementById("scoreSubmit")
+let nameSubmit = document.getElementById("nameSubmit")
+
+let highScore = [];
 
 let questionsARR =[ {
     "question": "What is HTML?",
@@ -77,6 +80,7 @@ function startGame(){
         timerEl.textContent = 'Time Left: 0 seconds';
         multiChoice.style.display = "none";
         scoreSubmit.style.display = "flex";
+        
         if (count<questionsARR.length){
           score = 0;
         }
@@ -101,6 +105,7 @@ function startGame(){
   choice_4.textContent = questionsARR[count].choice_4;
 
   multiChoice.addEventListener("click", function(event){
+    event.stopPropagation();
     let element = event.target;
     if (element.matches("button")){
       let chosenAnswer = element.textContent;
@@ -109,7 +114,7 @@ function startGame(){
         timeLeft = timeLeft-15;
       }
 
-      count++
+      count++;
 
       if (count<questionsARR.length){
         question.textContent = questionsARR[count].question;
@@ -124,5 +129,20 @@ function startGame(){
       
     }
   })
+
+  nameSubmit.addEventListener("click", function(event){
+    event.preventDefault();
+    event.stopPropagation();
+
+    let playerName = document.getElementById("playerName");
+    highScore.push([playerName.value,score]);
+    localStorage.setItem("highScore",highScore);
+
+    intro.style.display = "flex";
+    scoreSubmit.style.display = "none";
+  })
+
+
+
 }
 
