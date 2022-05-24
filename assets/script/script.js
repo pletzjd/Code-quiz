@@ -143,7 +143,9 @@ function storeScore(event){
   event.stopPropagation();
 
   let playerName = document.getElementById("playerName");
-  highScore.push([playerName.value,score]);
+  highScore.push([score,playerName.value]);
+  highScore.sort();
+  highScore.reverse();
   localStorage.setItem("highScore",highScore);
 
   intro.style.display = "flex";
