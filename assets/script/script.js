@@ -23,10 +23,12 @@ if (highScore === null){
   highScore = [];
 }
 let highScoreLi = [];
+let listEl = document.getElementById("listEl")
 
 
 
-let home = document.getElementById("home")
+let home = document.getElementById("home");
+let reset = document.getElementById("reset");
 
 let questionsARR =[ {
     "question": "What is HTML?",
@@ -73,6 +75,7 @@ let questionsARR =[ {
 
 startButton.addEventListener("click",startGame)
 home.addEventListener("click",homeButton)
+reset.addEventListener("click",resetButton)
 
 
 
@@ -123,7 +126,6 @@ function startGame(){
 }
 
 function writeHighscore(){
-  let listEl = document.getElementById("listEl")
   for(let i=0; i<highScore.length;i++){
     highScoreLi.push(document.createElement("li"));
     highScoreLi[i].textContent = "Name: " + highScore[i][1] + " Score: " + highScore[i][0];
@@ -157,6 +159,15 @@ function questionWrite(event){
     }
     
   }
+}
+
+function resetButton(){
+  localStorage.setItem("highScore",null);
+  for(let i=0; i<highScore.length;i++){
+    listEl.removeChild(highScoreLi[i])
+  }
+  highScore = [];
+  highScoreLi = [];
 }
 
 function homeButton(){
