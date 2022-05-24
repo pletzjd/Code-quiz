@@ -104,45 +104,49 @@ function startGame(){
   choice_3.textContent = questionsARR[count].choice_3;
   choice_4.textContent = questionsARR[count].choice_4;
 
-  multiChoice.addEventListener("click", function(event){
-    event.stopPropagation();
-    let element = event.target;
-    if (element.matches("button")){
-      let chosenAnswer = element.textContent;
+  multiChoice.addEventListener("click", questionWrite)
 
-      if (chosenAnswer !== questionsARR[count].answer){
-        timeLeft = timeLeft-15;
-      }
+  nameSubmit.addEventListener("click",storeScore )
 
-      count++;
 
-      if (count<questionsARR.length){
-        question.textContent = questionsARR[count].question;
-        choice_1.textContent = questionsARR[count].choice_1;
-        choice_2.textContent = questionsARR[count].choice_2;
-        choice_3.textContent = questionsARR[count].choice_3;
-        choice_4.textContent = questionsARR[count].choice_4;
-      }else{
-        score = timeLeft;
-        timeLeft = 0;
-      }
-      
+
+}
+
+function questionWrite(event){
+  event.stopPropagation();
+  let element = event.target;
+  if (element.matches("button")){
+    let chosenAnswer = element.textContent;
+
+    if (chosenAnswer !== questionsARR[count].answer){
+      timeLeft = timeLeft-15;
     }
-  })
 
-  nameSubmit.addEventListener("click", function(event){
-    event.preventDefault();
-    event.stopPropagation();
+    count++;
 
-    let playerName = document.getElementById("playerName");
-    highScore.push([playerName.value,score]);
-    localStorage.setItem("highScore",highScore);
+    if (count<questionsARR.length){
+      question.textContent = questionsARR[count].question;
+      choice_1.textContent = questionsARR[count].choice_1;
+      choice_2.textContent = questionsARR[count].choice_2;
+      choice_3.textContent = questionsARR[count].choice_3;
+      choice_4.textContent = questionsARR[count].choice_4;
+    }else{
+      score = timeLeft;
+      timeLeft = 0;
+    }
+    
+  }
+}
 
-    intro.style.display = "flex";
-    scoreSubmit.style.display = "none";
-  })
+function storeScore(event){
+  event.preventDefault();
+  event.stopPropagation();
 
+  let playerName = document.getElementById("playerName");
+  highScore.push([playerName.value,score]);
+  localStorage.setItem("highScore",highScore);
 
-
+  intro.style.display = "flex";
+  scoreSubmit.style.display = "none";
 }
 
