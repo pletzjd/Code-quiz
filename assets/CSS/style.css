@@ -63,7 +63,7 @@ header{
     padding: 1rem;
   }
 
-#multiChoice, #scoreSubmit{
+#multiChoice, #scoreSubmit, #highscores{
     display: none;
     flex-wrap: wrap;
     flex-direction: column;

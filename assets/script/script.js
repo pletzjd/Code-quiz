@@ -1,5 +1,5 @@
 let startButton = document.getElementById("start")
-let highscoreButton = document.getElementById("highscore")
+let highscoreButton = document.getElementById("highscoreButton")
 
 let multiChoice = document.getElementById("multiChoice");
 let intro = document.getElementById("intro");
@@ -16,8 +16,17 @@ let score = 0;
 
 let scoreSubmit = document.getElementById("scoreSubmit")
 let nameSubmit = document.getElementById("nameSubmit")
+let highscores = document.getElementById("highscores")
 
-let highScore = [];
+let highScore = JSON.parse(localStorage.getItem("highScore"));
+if (highScore === null){
+  highScore = [];
+}
+let highScoreLi = [];
+
+
+
+let home = document.getElementById("home")
 
 let questionsARR =[ {
     "question": "What is HTML?",
@@ -63,6 +72,7 @@ let questionsARR =[ {
 
 
 startButton.addEventListener("click",startGame)
+home.addEventListener("click",homeButton)
 
 
 
@@ -112,6 +122,17 @@ function startGame(){
 
 }
 
+function writeHighscore(){
+  let listEl = document.getElementById("listEl")
+  for(let i=0; i<highScore.length;i++){
+    highScoreLi.push(document.createElement("li"));
+    highScoreLi[i].textContent = "Name: " + highScore[i][1] + " Score: " + highScore[i][0];
+    listEl.appendChild(highScoreLi[i])
+
+  }
+
+}
+
 function questionWrite(event){
   event.stopPropagation();
   let element = event.target;
@@ -138,6 +159,11 @@ function questionWrite(event){
   }
 }
 
+function homeButton(){
+  highscores.style.display = "none";
+  intro.style.display = "flex";
+}
+
 function storeScore(event){
   event.preventDefault();
   event.stopPropagation();
@@ -146,9 +172,11 @@ function storeScore(event){
   highScore.push([score,playerName.value]);
   highScore.sort();
   highScore.reverse();
-  localStorage.setItem("highScore",highScore);
+  localStorage.setItem("highScore",JSON.stringify(highScore));
 
-  intro.style.display = "flex";
+  writeHighscore()
+
+  highscores.style.display = "flex";
   scoreSubmit.style.display = "none";
 }
 
