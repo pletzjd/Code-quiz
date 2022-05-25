@@ -73,9 +73,10 @@ let questionsARR =[ {
 ]
 
 
-startButton.addEventListener("click",startGame)
-home.addEventListener("click",homeButton)
-reset.addEventListener("click",resetButton)
+startButton.addEventListener("click",startGame);
+home.addEventListener("click",homeButton);
+reset.addEventListener("click",resetButton);
+highscoreButton.addEventListener("click",showHighscores);
 
 
 
@@ -159,6 +160,11 @@ function questionWrite(event){
     }
     
   }
+}
+
+function showHighscores(){
+  highscores.style.display = "flex";
+  intro.style.display = "none";
 }
 
 function resetButton(){

@@ -1,5 +1,10 @@
 /*Setting default styling*/
 
+:root{
+    --mainColor: blueviolet;
+    --secondaryColor: #CBC3E3;
+}
+
 html{
     font-size: 62.5%;
 }
@@ -56,11 +61,27 @@ body{
     flex: 1 1;
 }
 
+button{
+    background-color: var(--mainColor);
+    color: var(--secondaryColor);
+    min-width: 10rem;
+    margin: 0.25rem;
+
+}
+
+div{
+    display: flex;
+}
+
 header{
     text-align: center;
     color: black;
-    background-color: blueviolet;
+    background-color: var(--mainColor);
     padding: 1rem;
+  }
+
+section ul li{
+    list-style: none;
   }
 
 #multiChoice, #scoreSubmit, #highscores{
@@ -88,8 +109,17 @@ header{
 #subheader{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    background-color:#CBC3E3;
+    justify-content: right;
+    background-color: var(--secondaryColor);
     padding-left: 1rem;
     padding-right: 1rem;
+}
+
+#timer{
+    margin-top: 0.25rem;
+}
+
+button:hover{
+    background-color: var(--secondaryColor);
+    color: var(--mainColor);
 }

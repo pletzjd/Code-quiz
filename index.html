@@ -15,14 +15,16 @@
     </header>
 
     <section id="subheader">
-        <button id="highscoreButton">Highscore</button>
-        <div id="timer">Time Left: 0 seconds</div>
+        <p id="timer">Time Left: 0 seconds</p>
     </section>
 
     <section id="intro">
         <h3>Welcome to the coding quiz!</h3>
-        <p>Some sort of explanation of the rules. Fill in properly later</p>
-        <button id="start">Start</button>
+        <p>Click 'Start' to show the first question and start the countdown. Wrong answers reduce your remaining time by 15 seconds</p>
+        <div>
+            <button id="start">Start</button>
+            <button id="highscoreButton">Highscore</button>
+        </div>
     </section>
 
     <section id="multiChoice">
@@ -48,8 +50,11 @@
     <section id="highscores">
         <h3>Highscores</h3>
         <ul id="listEl"></ul>
-        <button id="reset">Reset</button>
-        <button id="home">Home</button>
+        <div>
+            <button id="reset">Reset</button>
+            <button id="home">Home</button>
+        </div>
+        
     </section>
     
     <script src="./assets/script/script.js"></script>
