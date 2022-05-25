@@ -10,19 +10,19 @@ The live deployment of the site can be found at: https://pletzjd.github.io/Code-
 ## Usage
 
 The site loads with a welcome and a description of the rules. There are two clickable buttons under the description of the rules as shown below.
-![home screen](./assets/Images/home-screen.png)
+![home screen](./assets/images/home-screen.png)
 
 Clicking the start button loads the first question and starts the timer in the top right corner of the page.
 
-![example question](./assets/Images/Example-question.png)
+![example question](./assets/images/Example-question.png)
 
 Once an answer is selected a new question is displayed. If a question is answered incorrectly 15 seconds is removed from the timer. Once all questions are answered or time reaches 0 the users remaining time becomes their score. The user is shown their score and shown a form to submit their name and score.
 
-![score submission form](./assets/Images/score-submission.png)
+![score submission form](./assets/images/score-submission.png)
 
 When the submit button is clicked the highscore board appears with the newly entered name and score. There are buttons at the botton to reset the highscore board, removing all previously saved scores.
 
-![highscore board](./assets/Images/Highscores.png)
+![highscore board](./assets/images/Highscores.png)
 
 The home button takes the user back to part of the page that was initially loaded. The highscore button on the initially loaded page can be clicked to go to the highscore board
 ## Credits
