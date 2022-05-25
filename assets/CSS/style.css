@@ -87,7 +87,7 @@ section ul li{
 
 /*id selectors*/
 
-#multiChoice, #scoreSubmit, #highscores{
+#multiChoice, #scoreSubmit, #highscoreSection{
     display: none;
     flex-wrap: wrap;
     flex-direction: column;

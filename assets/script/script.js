@@ -1,35 +1,35 @@
-let startButton = document.getElementById("start")
-let highscoreButton = document.getElementById("highscoreButton")
-
-let multiChoice = document.getElementById("multiChoice");
-let intro = document.getElementById("intro");
-let question = document.getElementById("question");
+//navigation button variable assignments
+let highscoreButton = document.getElementById("highscoreButton");
+let homeButton = document.getElementById("homeButton");
+let resetButton = document.getElementById("resetButton");
+let startButton = document.getElementById("startButton");
+//timer variable assignments
+let timerEl = document.getElementById("timer")
+//multiple choice question sections variable assignments
 let choice_1 = document.getElementById("choice_1");
 let choice_2 = document.getElementById("choice_2");
 let choice_3 = document.getElementById("choice_3");
 let choice_4 = document.getElementById("choice_4");
-
-let timeLeft = 60;
-let count =0;
-let timerEl = document.getElementById("timer")
-let score = 0;
-
+let intro = document.getElementById("intro");
+let multiChoice = document.getElementById("multiChoice");
+let question = document.getElementById("question");
+//score submission section variable assignments
+let scoreDisplay= document.getElementById("scoreDisplay");
 let scoreSubmit = document.getElementById("scoreSubmit")
 let nameSubmit = document.getElementById("nameSubmit")
-let highscores = document.getElementById("highscores")
-
-let highScore = JSON.parse(localStorage.getItem("highScore"));
-if (highScore === null){
-  highScore = [];
+//highscore list variable assignments
+let highscoreSection = document.getElementById("highscoreSection")
+let highscoreList = document.getElementById("highscoreList")
+//script variable assignments
+let count =0;
+let highscoreStorage = JSON.parse(localStorage.getItem("highscoreStorage"));
+if (highscoreStorage === null){
+  highscoreStorage = [];
 }
-let highScoreLi = [];
-let listEl = document.getElementById("listEl")
-
-
-
-let home = document.getElementById("home");
-let reset = document.getElementById("reset");
-
+let highscoreLi = [];
+let score = 0;
+let timeLeft = 60;
+//multiple choice questions
 let questionsARR =[ {
     "question": "What is HTML?",
     "choice_1": "Programing language",
@@ -72,69 +72,16 @@ let questionsARR =[ {
 }
 ]
 
-
-startButton.addEventListener("click",startGame);
-home.addEventListener("click",homeButton);
-reset.addEventListener("click",resetButton);
+//Event listeners
 highscoreButton.addEventListener("click",showHighscores);
+homeButton.addEventListener("click",showHome);
+multiChoice.addEventListener("click", questionWrite)
+nameSubmit.addEventListener("click",storeScore )
+resetButton.addEventListener("click",resetHighscore);
+startButton.addEventListener("click",startGame);
 
 
-
-function startGame(){
-
-  function timer(){
-    let timeInterval = setInterval(function () {
-      if (timeLeft > 1) {
-        timerEl.textContent = "Time Left: " + timeLeft +" seconds";
-        timeLeft--;
-      }else if (timeLeft === 1) {
-        timerEl.textContent = "Time Left: " + timeLeft +" second";
-        timeLeft--;
-      } else if(timeLeft === 0){
-        timerEl.textContent = 'Time Left: 0 seconds';
-        multiChoice.style.display = "none";
-        scoreSubmit.style.display = "flex";
-        
-        if (count<questionsARR.length){
-          score = 0;
-        }
-        timeLeft = 60;
-        count = 0;
-        let scoreDisplay= document.getElementById("scoreDisplay");
-        scoreDisplay.textContent= "Your score is: "+`${score}`;
-        clearInterval(timeInterval);
-      }
-      return;
-    }, 1000);
-}
-
-  timer()
-  multiChoice.style.display = "flex";
-  intro.style.display = "none";
-
-  question.textContent = questionsARR[count].question;
-  choice_1.textContent = questionsARR[count].choice_1;
-  choice_2.textContent = questionsARR[count].choice_2;
-  choice_3.textContent = questionsARR[count].choice_3;
-  choice_4.textContent = questionsARR[count].choice_4;
-
-  multiChoice.addEventListener("click", questionWrite)
-
-  nameSubmit.addEventListener("click",storeScore )
-
-
-
-}
-
-function writeHighscore(){
-  for(let i=0; i<highScore.length;i++){
-    highScoreLi.push(document.createElement("li"));
-    highScoreLi[i].textContent = "Name: " + highScore[i][1] + " Score: " + highScore[i][0];
-    listEl.appendChild(highScoreLi[i])
-
-  }
-
-}
+//functions
 
 function questionWrite(event){
   event.stopPropagation();
@@ -156,48 +103,92 @@ function questionWrite(event){
       choice_4.textContent = questionsARR[count].choice_4;
     }else{
       score = timeLeft;
+      if(score < 0){
+        score = 0;
+      }
       timeLeft = 0;
     }
     
   }
 }
 
+function resetHighscore(){
+  localStorage.setItem("highscoreStorage",null);
+  for(let i=0; i<highscoreStorage.length;i++){
+    highscoreList.removeChild(highscoreLi[i])
+  }
+  highscoreStorage = [];
+  highscoreLi = [];
+}
+
 function showHighscores(){
-  highscores.style.display = "flex";
+  highscoreSection.style.display = "flex";
   intro.style.display = "none";
-  if (highScore!==[]){
+  if (highscoreStorage!==[]){
     writeHighscore();
   }
-
 }
 
-function resetButton(){
-  localStorage.setItem("highScore",null);
-  for(let i=0; i<highScore.length;i++){
-    listEl.removeChild(highScoreLi[i])
-  }
-  highScore = [];
-  highScoreLi = [];
-}
-
-function homeButton(){
-  highscores.style.display = "none";
+function showHome(){
+  highscoreSection.style.display = "none";
   intro.style.display = "flex";
+}
+
+function startGame(){
+  timer()
+  multiChoice.style.display = "flex";
+  intro.style.display = "none";
+
+  question.textContent = questionsARR[count].question;
+  choice_1.textContent = questionsARR[count].choice_1;
+  choice_2.textContent = questionsARR[count].choice_2;
+  choice_3.textContent = questionsARR[count].choice_3;
+  choice_4.textContent = questionsARR[count].choice_4;
 }
 
 function storeScore(event){
   event.preventDefault();
   event.stopPropagation();
-
   let playerName = document.getElementById("playerName");
-  highScore.push([score,playerName.value]);
-  highScore.sort();
-  highScore.reverse();
-  localStorage.setItem("highScore",JSON.stringify(highScore));
-
+  highscoreStorage.push([score,playerName.value]);
+  highscoreStorage.sort();
+  highscoreStorage.reverse();
+  localStorage.setItem("highscoreStorage",JSON.stringify(highscoreStorage));
   writeHighscore()
-
-  highscores.style.display = "flex";
+  highscoreSection.style.display = "flex";
   scoreSubmit.style.display = "none";
 }
 
+function timer(){
+  let timeInterval = setInterval(function () {
+    if (timeLeft > 1) {
+      timerEl.textContent = "Time Left: " + timeLeft +" seconds";
+      timeLeft--;
+    }else if (timeLeft === 1) {
+      timerEl.textContent = "Time Left: " + timeLeft +" second";
+      timeLeft--;
+    } else if(timeLeft === 0){
+      timerEl.textContent = 'Time Left: 0 seconds';
+      multiChoice.style.display = "none";
+      scoreSubmit.style.display = "flex";
+      if (count<questionsARR.length){
+        score = 0;
+      }
+      timeLeft = 60;
+      count = 0;
+      scoreDisplay.textContent= "Your score is: "+`${score}`;
+      clearInterval(timeInterval);
+    }
+    return;
+  }, 1000);
+}
+
+function writeHighscore(){
+  for(let i=0; i<highscoreStorage.length;i++){
+    highscoreLi.push(document.createElement("li"));
+    highscoreLi[i].textContent = "Name: " + highscoreStorage[i][1] + " Score: " + highscoreStorage[i][0];
+    highscoreList.appendChild(highscoreLi[i])
+
+  }
+
+}
