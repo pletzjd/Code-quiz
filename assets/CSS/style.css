@@ -1,10 +1,4 @@
 /*Setting default styling*/
-
-:root{
-    --mainColor: blueviolet;
-    --secondaryColor: #CBC3E3;
-}
-
 html{
     font-size: 62.5%;
 }
@@ -55,6 +49,13 @@ ul,ol{
 }
 
 /*Custome styling*/
+/*variables*/
+:root{
+    --mainColor: blueviolet;
+    --secondaryColor: #CBC3E3;
+}
+
+/*element selectors*/
 body{
     display: flex;
     flex-direction: column;
@@ -83,6 +84,8 @@ header{
 section ul li{
     list-style: none;
   }
+
+/*id selectors*/
 
 #multiChoice, #scoreSubmit, #highscores{
     display: none;
@@ -118,6 +121,8 @@ section ul li{
 #timer{
     margin-top: 0.25rem;
 }
+
+/*pseudo class selectors*/
 
 button:hover{
     background-color: var(--secondaryColor);

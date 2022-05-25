@@ -165,6 +165,10 @@ function questionWrite(event){
 function showHighscores(){
   highscores.style.display = "flex";
   intro.style.display = "none";
+  if (highScore!==[]){
+    writeHighscore();
+  }
+
 }
 
 function resetButton(){
