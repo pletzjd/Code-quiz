@@ -33,15 +33,15 @@ let timeLeft = 60;
 let questionsARR =[ {
     "question": "What is HTML?",
     "choice_1": "Programing language",
-    "choice_2": "Formating language",
+    "choice_2": "Markup language",
     "choice_3": "Styling language",
     "choice_4": "Useless",
-    "answer": "Formating language"
+    "answer": "Markup language"
 },
 {
     "question": "What is CSS?",
     "choice_1": "Programing language",
-    "choice_2": "Formating language",
+    "choice_2": "Markup language",
     "choice_3": "Styling language",
     "choice_4": "Useless",
     "answer": "Styling language"
@@ -49,13 +49,13 @@ let questionsARR =[ {
 {
     "question": "What is Javascript?",
     "choice_1": "Programing language",
-    "choice_2": "Formating language",
+    "choice_2": "Markup language",
     "choice_3": "Styling language",
     "choice_4": "Useless",
     "answer": "Programing language"
 },
 {
-    "question": "If, when my function is done, I want a variable defined by calling the function to be set to 8, what should be at the end of my function?",
+    "question": "If I define a function 'giveMeEight()' and in my code I have 'a=giveMeEight()' what should my funcion end with to set the variable 'a' to '8'?",
     "choice_1": "send 8",
     "choice_2": "give 8",
     "choice_3": "return 8",
@@ -63,7 +63,7 @@ let questionsARR =[ {
     "answer": "return 8"
 },
 {
-    "question": "The logical operator for 'and' is: ",
+    "question": "What is the logical operator for 'and'?",
     "choice_1": "&&",
     "choice_2": "||",
     "choice_3": "++",
